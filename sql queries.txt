@@ -1,0 +1,31 @@
+select mov_title from movie where mov_id =905 or mov_id=907 or mov_id=917;
+
+
+SELECT act_fname , act_lname,role 
+FROM actor 
+INNER JOIN movie_cast
+on actor.act_id = movie_cast.act_id
+INNER JOIN movie
+ON movie.mov_id =movie_cast.mov_id
+where movie.mov_title = 'Annie Hall';
+
+
+SELECT act_fname , act_lname,mov_title,mov_dt_rel
+FROM actor 
+INNER JOIN movie_cast
+on actor.act_id = movie_cast.act_id
+INNER JOIN movie
+ON movie.mov_id =movie_cast.mov_id
+where movie.mov_year between 1990 and 2000;
+
+
+select movie.mov_year 
+FROM movie
+INNER JOIN rating
+on movie.mov_id = rating.mov_id 
+where rev_stars =3 or rev_stars =4 order by mov_year asc ;
+
+
+select mov_id, mov_year, mov_title from movie where mov_title="Boogie Nights" order by mov_year asc
+
+
