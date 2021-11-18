@@ -160,3 +160,41 @@ values
 (921,9018,8.00,667758),
 (922,9019,8.40,511613),
 (923,9020,6.70,13091);
+
+-- i
+select mov_title from movies.movie where mov_id=917 or mov_id=907 or mov_id=905;
+
+-- ii-?
+select actor.act_fname,actor.act_lname,movie_cast.role from movies.actor,movies.movie_cast INNER JOIN movie ON movie.mov_title="Annie Hall";
+
+-- iii write a SQL query to find the actors who have not acted in 
+-- any movie between 1990 and 2000. Return actor first name, last name, movie title and release year.
+select actor.act_fname,actor.act_lname, movie.mov_title ,movie.mov_dt_rel from movies.movie,movies.actor where mov_dt_rel not BETWEEN 2000 AND 1990;
+
+
+
+-- iiii write a SQL query to find those years when a movie received a rating of 3 or 4. Sort the result in increasing order on movie year. Return move year
+select movie.mov_year from movies.movie INNER JOIN movies.rating ON movies.rating.rev_stars=3 or  movies.rating.rev_stars=4 
+order by movie.mov_year;
+
+
+
+-- v write a SQL query to find those movie titles, which include the words 'Boogie Nights'. 
+-- Sort the result-set in ascending order by movie year. Return movie ID, movie title and movie release year.
+select movie.mov_id,movie.mov_title,movie.mov_dt_rel from movies.movie where movie.mov_title like 'Boogie Nights%';
+order by movie.mov_year;
+
+
+-- vi write a SQL query to find those movies, which have received ratings. Return movie title, director first name, director last name and review stars.
+select movie.mov_title,director.dir_fname,director.dir_lname from movies.movie,movies.director INNER JOIN movies.rating ON  rating.num_o_ratings>0 order by movie.mov_year;
+
+
+-- vii. write a SQL query to find the highest-rated movies. Return movie title, movie year, review stars and releasing country.
+
+select movie.mov_title,movie.mov_year, rating.rev_stars , movie.mov_rel_country, max(rating.num_o_ratings) from rating
+join movies.movie;
+
+-- xi write a SQL query to find the movies without any rating. Return movie title
+select movie.mov_title from movie  INNER join rating on movie.mov_id=rating.mov_id where isnull(rating.num_o_ratings) ;
+-- xwrite a SQL query to find those movies, which was made before 1998. Return movie title.
+select movie.mov_title from  movie where mov_year<1998;
