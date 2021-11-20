@@ -1,0 +1,42 @@
+i:
+SELECT mov_title FROM `movie` WHERE mov_id = 905 OR mov_id = 907 OR mov_id =917;
+==================================
+ii:
+SELECT act_fname,act_lname FROM `actor` WHERE act_id = (SELECT act_id FROM movie_cast WHERE mov_id = (SELECT mov_id from movie WHERE mov_title = 'Annie Hall'));
+==================================
+iii:
+SELECT act_fname, act_lname, mov_title, mov_year FROM actor
+JOIN movie_cast ON actor.act_id=movie_cast.act_id
+JOIN movie ON movie_cast.mov_id=movie.mov_id
+WHERE movie.mov_year < 1990 or  movie.mov_year > 2000;
+==================================
+iv:
+SELECT mov_year
+FROM movie
+INNER JOIN rating ON rating.mov_id = movie.mov_id AND (rating.rev_stars = 3 OR rating.rev_stars = 4);
+==================================
+v:
+SELECT movie.mov_id, movie.mov_title, movie.mov_year
+FROM movie WHERE movie.mov_title LIKE 'Boogie Nights' ORDER BY movie.mov_year;
+==================================
+vi:
+SELECT movie.mov_title, director.dir_fname, director.dir_lname, rating.rev_stars
+FROM movie JOIN movie_direction USING(mov_id) join director using (dir_id) left join rating using(mov_id) where rating.rev_stars is not null;
+==================================
+vii:
+SELECT movie.mov_title, movie.mov_year, rating.rev_stars, movie.mov_rel_country
+FROM movie 
+NATURAL JOIN rating WHERE rating.rev_stars = ( SELECT MAX(rating.rev_stars) FROM rating );
+==================================
+viii:
+SELECT * FROM `movie` WHERE mov_id = 905 OR mov_id = 907 OR mov_id =917;
+==================================
+ix:
+SELECT movie.mov_title
+FROM movie
+WHERE movie.mov_id NOT IN (SELECT rating.mov_id FROM rating);
+=========================================
+x:
+SELECT movie.mov_title FROM movie WHERE movie.mov_year <= 1997;
+
+
